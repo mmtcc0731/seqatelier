@@ -6,6 +6,7 @@
 |---|---|
 | Windows / Python 3.13.2 | pytest: 119 passed, 1 skipped |
 | Ubuntu 22.04 (WSL) / Python 3.13.2 | pytest: 119 passed, 1 skipped |
+| GitHub Actions / Windows・Linux・macOS | テスト119 passed, 1 skipped、静的解析、Webビルド、wheelの新規インストール成功 |
 | 任意依存 primer3 | 未インストールのため実ライブラリを使う1件をskip |
 | Pythonの静的解析 | Ruff: 成功、Pyright: 0 errors / 0 warnings |
 | Web画面 | TypeScript型チェック、Vite production build成功 |
@@ -15,6 +16,7 @@
 | プラグイン設定 | plugin.json / mcp.jsonを公式JSON Schemaで検証済み |
 | 同梱スキル | skill-creatorのquick_validate成功 |
 | Docker Compose | configの構文・展開検証成功。実ビルド・起動は未検証 |
+| Docker単一コンテナ / GitHub Actions | ビルド・起動・health成功、未認証のAPIアクセス拒否を確認 |
 | ブラウザ操作 | 合成デモでfeature編集→下書き→確定保存→履歴表示を確認 |
 
 データ保存・復元のテストは、同時書き込みの競合、再起動後の下書き、版の復元、バックアップの展開、
@@ -29,6 +31,10 @@ Dropbox等の実サービスとの同期は実行していません。
 配布wheelにWeb画面が含まれること、研究データ・SQLite DB・仮想環境・node_modules・旧protocolが
 配布アーカイブに含まれないことを確認しています。
 
-未確認: macOS実機、Dockerコンテナ実行、実際のCodexへの登録・ツール実行、ChatGPT Dots接続、
-公開HTTPS/OAuth環境、GitHub Actions実行、公開レジストリへのアップロード。
+GitHubの[OS別ビルド確認](https://github.com/mmtcc0731/seqatelier/actions/runs/37176919454)と
+[コンテナ起動確認](https://github.com/mmtcc0731/seqatelier/actions/runs/37176974596)も参照できます。
+前者のコンテナ検査にあった起動待ち不足は後者で修正済みです。
+
+未確認: ユーザーのmacOS実機、Compose全体の実行、実際のCodexへの登録・ツール実行、ChatGPT Dots接続、
+公開HTTPS/OAuth環境、Dropbox等の実同期、PyPIへの登録。
 MCP SDKでの通信確認を、これらの実製品・クラウド環境の検証済みとは扱っていません。
