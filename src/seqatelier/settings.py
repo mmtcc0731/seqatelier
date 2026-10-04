@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -14,7 +15,7 @@ def user_directory(kind: str) -> Path:
     if os.name == "nt":
         base = Path(os.environ.get("LOCALAPPDATA", str(Path.home() / "AppData" / "Local")))
         return base / "seqatelier" / kind
-    if os.sys.platform == "darwin":
+    if sys.platform == "darwin":
         base = Path.home() / "Library" / ("Caches" if kind == "cache" else "Application Support")
         return base / "seqatelier"
     defaults = {"config": ".config", "cache": ".cache", "data": ".local/share"}
