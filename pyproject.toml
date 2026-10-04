@@ -1,0 +1,57 @@
+[project]
+name = "seqatelier"
+version = "0.3.0"
+description = "Portable sequence management and primer design for people and agents"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Murakoshi Shunya" }]
+dependencies = ["biopython==1.87", "filelock>=3.20,<4"]
+
+[project.scripts]
+seqatelier = "seqatelier.cli:main"
+
+[project.optional-dependencies]
+primer3 = ["primer3-py>=2.0"]
+viewer = ["fastapi>=0.115", "uvicorn>=0.30"]
+mcp = ["mcp>=2.3,<3", "uvicorn>=0.30"]
+cloud = ["fastapi>=0.115", "uvicorn>=0.30", "mcp>=2.3,<3", "PyJWT[crypto]>=2.10,<3"]
+dev = ["ruff>=0.8", "pyright>=1.1.390", "pytest>=8.0", "pytest-cov>=5.0", "httpx>=0.28", "build>=1.2"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/seqatelier"]
+
+[tool.hatch.build]
+artifacts = ["src/seqatelier/web_assets/**"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/frontend", "/tests", "/scripts", "/docs", "/plugin", "/README.md", "/LICENSE", "/pyproject.toml", "/uv.lock", "/Dockerfile", "/compose.yaml", "/deploy", "/server.py", "/.github", "/.dockerignore", "/.gitignore"]
+exclude = ["/frontend/node_modules", "/frontend/dist"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "N"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["seqatelier"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.13"
+typeCheckingMode = "standard"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["src/seqatelier"]

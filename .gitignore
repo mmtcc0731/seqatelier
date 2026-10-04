@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.coverage
+*.egg-info/
+dist/
+build/
+.venv/
+node_modules/
+src/seqatelier/web_assets/
+.pytest_cache/
+.ruff_cache/
+*.tsbuildinfo
+.env
+data/
+workspace/
+*.sqlite3*
+*.log

@@ -1,0 +1,13 @@
+.git
+.venv
+**/__pycache__
+**/node_modules
+frontend/dist
+src/seqatelier/web_assets
+dist
+data
+workspace
+protocol
+.env
+*.sqlite3*
+*.log

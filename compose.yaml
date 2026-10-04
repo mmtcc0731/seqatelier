@@ -1,0 +1,31 @@
+# Working image name only. Supply SEQATELIER_TOKEN in the shell or an untracked .env.
+services:
+  init:
+    build: .
+    image: seqatelier:dev
+    command: ["init"]
+    volumes: ["records:/data", "locks:/locks"]
+  viewer:
+    image: seqatelier:dev
+    depends_on:
+      init: {condition: service_completed_successfully}
+    environment:
+      SEQATELIER_TOKEN: ${SEQATELIER_TOKEN:?Set a random access token of at least 32 characters}
+    command: ["serve", "--host", "0.0.0.0"]
+    ports: ["127.0.0.1:8765:8765"]
+    volumes: ["records:/data", "locks:/locks"]
+    restart: unless-stopped
+  mcp:
+    image: seqatelier:dev
+    depends_on:
+      init: {condition: service_completed_successfully}
+    environment:
+      SEQATELIER_TOKEN: ${SEQATELIER_TOKEN:?Set a random access token of at least 32 characters}
+      SEQATELIER_ALLOWED_HOSTS: ${SEQATELIER_ALLOWED_HOSTS:-localhost,127.0.0.1}
+    command: ["mcp", "--transport", "streamable-http", "--host", "0.0.0.0"]
+    ports: ["127.0.0.1:8766:8766"]
+    volumes: ["records:/data", "locks:/locks"]
+    restart: unless-stopped
+volumes:
+  records:
+  locks:

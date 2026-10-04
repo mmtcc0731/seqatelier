@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "seqatelier",
+  "version": "0.3.0",
+  "description": "SeqAtelier: sequence records, revision history and primer design. Local CLI configuration.",
+  "license": "MIT"
+}

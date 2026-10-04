@@ -1,0 +1,18 @@
+/* 最小限のグローバルリセット。実際のテーマは styles/index.css（App.tsx からimport）。 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}

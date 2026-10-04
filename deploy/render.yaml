@@ -1,0 +1,28 @@
+# Paid deployment: $7/month compute + $0.25/month for 1 GB storage (2026-10-04).
+# Create only after approving charges. See docs/hosting.md for Auth0 setup.
+services:
+  - type: web
+    name: seqatelier
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    region: singapore
+    branch: main
+    autoDeployTrigger: "off"
+    healthCheckPath: /health
+    disk:
+      name: sequences
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: SEQATELIER_WORKSPACE
+        value: /data
+      - key: SEQATELIER_AUTH_ISSUER
+        sync: false
+      - key: SEQATELIER_AUTH_CLIENT_ID
+        sync: false
+      - key: SEQATELIER_AUTH_SUBJECTS
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: "1"
